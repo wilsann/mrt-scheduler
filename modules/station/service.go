@@ -84,10 +84,6 @@ func (s *service) CheckSchedulesByStation(id string) (response []ScheduleRespons
 }
 
 func ConvertDataToResponse(schedule Schedule) (response []ScheduleResponse, err error) {
-	var (
-		LebakBulus = "Stasiun Lebak Bulus Grab"
-		BundaranHi = "Stasiun Bundaran HI Bank DKI"
-	)
 
 	scheduleLebakBulus := schedule.StationLb
 	scheduleBundaranHi := schedule.StationHi
@@ -106,7 +102,8 @@ func ConvertDataToResponse(schedule Schedule) (response []ScheduleResponse, err 
 	for _, item := range scheduleLebakBulusParsed {
 		if item.Format("15:04") > time.Now().Format("15:04") {
 			response = append(response, ScheduleResponse{
-				StationName: LebakBulus,
+				// StationName: LebakBulus,
+				StationName: schedule.StationName,
 				Time:        item.Format("15:04"),
 			})
 		}
@@ -115,7 +112,7 @@ func ConvertDataToResponse(schedule Schedule) (response []ScheduleResponse, err 
 	for _, item := range scheduleBundaranHiParsed {
 		if item.Format("15:04") > time.Now().Format("15:04") {
 			response = append(response, ScheduleResponse{
-				StationName: BundaranHi,
+				StationName: schedule.StationName,
 				Time:        item.Format("15:04"),
 			})
 		}
